@@ -78,7 +78,8 @@ class DeviceRecordContract extends Contract {
         let drecord = DeviceRecord.createInstance(device_serial, price, manufacturing_date, company, device_type);
         //TASK 0
         // Add device record by calling the method addDRecord in the deviceRecordList
-        throw new Error()
+        // throw new Error()
+        await ctx.deviceRecordList.addDRecord(drecord);
         return drecord.toBuffer();
     }
 
@@ -86,6 +87,7 @@ class DeviceRecordContract extends Contract {
         let drecordKey = DeviceRecord.makeKey([device_serial, price]);
         //TASK-1: Use a method from deviceRecordList to read a record by key 
         // Also complete Task0 before proceeding for Task-1 to work
+        let drecord = await ctx.getDRecord(drecordKey);
         return JSON.stringify(drecord)
     }
 
@@ -96,13 +98,16 @@ class DeviceRecordContract extends Contract {
      * @param {String} price price
      * @param {String} last_update date string 
      */
-    /*async updateLastUpdate(ctx, device_serial, price, last_update) {
+    async updateLastUpdate(ctx, device_serial, price, last_update) {
         let drecordKey = DeviceRecord.makeKey([device_serial, price]);
         //TASK-3: Use a method from deviceRecordList to read a record by key
         //Use setLastUpdate from DeviceRecord to update the last_update field
         //Use updateDRecord from deviceRecordList to update the record on the ledger
+        let drecord = await ctx.deviceRecordList.getDRecord(drecordKey);
+        drecord.setlastUpdate(last_update);
+        await ctx.deviceRecordList.updateDRecord(drecord);
         return drecord.toBuffer();
-    }*/
+    }
 
 
 

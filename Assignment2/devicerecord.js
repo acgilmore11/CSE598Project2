@@ -22,6 +22,8 @@ class DeviceRecord extends State {
     setdevicetype(newdevicetype) { return this.device_type = newdevicetype }
 
     //TASK 2 - Write a getter and a setter for a field called last_update
+    getlastUpdate() { return this.last_update}
+    setlastUpdate(lastUpdate) { this.last_update = lastUpdate}
 
     //Helper functions
 
